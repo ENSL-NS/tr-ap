@@ -198,7 +198,7 @@ func main() {
 				Driver:    conf.Parsers.TrafficParsers[i].Driver,
 				Name:      conf.Parsers.TrafficParsers[i].Ifname,
 				Mode:      conf.Parsers.TrafficParsers[i].Mode,
-				Filter:    network.NotDNSFilter,
+				Filter:    conf.Parsers.TrafficParsers[i].Filter,
 				SnapLen:   1500,
 				Clustered: conf.Parsers.TrafficParsers[i].Clustered,
 				ClusterID: conf.Parsers.TrafficParsers[i].ClusterID,

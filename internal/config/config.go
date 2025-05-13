@@ -39,6 +39,8 @@ type ParserConfig struct {
 	Ifname string
 	// Mode for hte interface. Supports "host"|"router"|"mirror" modes
 	Mode string
+	// BPF filter string
+	Filter string
 	// Whether it's a replay session
 	Replay bool
 	// Gateway MAC address used when in replay mode

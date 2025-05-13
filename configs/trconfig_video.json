@@ -15,7 +15,8 @@
       {
         "Driver": "afpacket",
         "Ifname": "eth0",
-        "Mode": "router"
+        "Mode": "router",
+        "Filter": "(src net 192.168.0.0/16 or dst net 192.168.0.0/16) and not port 53"
       }
     ]
   },
