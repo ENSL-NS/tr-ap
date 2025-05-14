@@ -9,13 +9,13 @@
     "DNSParser": {
       "Driver": "pcap",
       "Ifname": "eth0",
-      "Mode": "router"
+      "Mode": "ip"
     },
     "TrafficParsers": [
       {
         "Driver": "pcap",
         "Ifname": "eth0",
-        "Mode": "router",
+        "Mode": "ip",
         "Filter": "(src net 192.168.0.0/16 or dst net 192.168.0.0/16) and not port 53"
       }
     ]
@@ -24,7 +24,7 @@
     "CacheType": "ConcurrentCacheMap",
     "EvictTime": 600000000000,
     "CleanupTime": 300000000000,
-    "ShardsCount": 4096,
+    "ShardsCount": 256,
     "Anonymize": false
   },
   "Stats": {

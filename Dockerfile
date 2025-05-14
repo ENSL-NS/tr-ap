@@ -2,10 +2,9 @@ FROM golang:bookworm AS builder
 
 # Install libpcap
 RUN apt-get update && \
-  apt-get -y install libpcap0.8 libpcap0.8-dev
-
+    apt-get -y install libpcap0.8 libpcap0.8-dev 
 # Set the working directory to ...
-WORKDIR /go/src/github.com/traffic-refinery/traffic-refinery/
+WORKDIR /home/gyongayo/Bureau/tr-ap
 
 # Copy the source code and config files
 ADD cmd ./cmd/
@@ -15,27 +14,39 @@ ADD Makefile ./
 ADD go.* ./
 
 # Get dependencies
+
+#RUN go mod edit -replace github.com/traffic-refinery/traffic-refinery=.
+# Create counters if needed
+# Nettoyer les dépendances
 RUN go mod tidy
 
-# Create counters if needed
 RUN go run scripts/create_counters.go
 
 # Build TR
 RUN make
 
 FROM debian:bookworm
+
 # Install libpcap
 RUN apt-get update && \
   apt-get -y install libpcap0.8 libpcap0.8-dev
+
+# Install tcpreplay
+RUN apt-get update && \
+  apt-get -y install tcpreplay tcpdump wget lsb-release gnupg
+
 
 WORKDIR /root/
 COPY --from=builder /go/src/github.com/traffic-refinery/traffic-refinery/tr /usr/bin/
 
 # Copy configuration files
 ADD ./configs config/
+ADD ./test  test/
+# Copy script files
+ADD ./scripts/run_replay.sh scripts/
 
 # Add folder to drop output.
-VOLUME /out
+VOLUME /tmp
 
 ENTRYPOINT ["/usr/bin/tr"]
-CMD ["-name", "trconfig_default.json", "-folder", "/root/config/"]
+CMD ["-c", "/root/config/trconfig_default.json", "-out", "/out/"]

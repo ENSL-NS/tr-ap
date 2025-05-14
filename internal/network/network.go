@@ -20,6 +20,7 @@ const (
 	apMode     = "router"
 	mirrorMode = "mirror"
 	replayMode = "replay"
+	ipMode = "ip"
 )
 
 const (
@@ -120,7 +121,7 @@ func getMacFromName(name string) (net.HardwareAddr, net.IPNet, net.IPNet) {
 	return hardwareAddr, localNetv4, localNetv6
 }
 
-func (ni *NetworkInterface) getDirection(eth *layers.Ethernet) (int, error) {
+func (ni *NetworkInterface) getDirection(eth *layers.Ethernet,ip *layers.IPv4) (int, error) {
 	dir := -1
 	if ni.Mode == apMode || ni.Mode == mirrorMode {
 		if eth.DstMAC.String() == ni.HwAddr.String() {
@@ -133,6 +134,13 @@ func (ni *NetworkInterface) getDirection(eth *layers.Ethernet) (int, error) {
 		if eth.SrcMAC.String() == ni.HwAddr.String() {
 			dir = TrafficOut
 		} else if eth.DstMAC.String() == ni.HwAddr.String() {
+			dir = TrafficIn
+		}
+	}  else if ni.Mode == ipMode {
+		// log.Debugf("src %s dst %s hw %s", eth.SrcMAC.String(), eth.DstMAC.String(), ni.HwAddr.String())
+		if ip.SrcIP.String() == ni.LocalNetv4.String() {
+			dir = TrafficOut
+		} else if ip.DstIP.String() == ni.LocalNetv4.String() {
 			dir = TrafficIn
 		}
 	} else {
