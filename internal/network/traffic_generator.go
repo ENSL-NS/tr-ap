@@ -11,7 +11,7 @@ import (
 	"github.com/google/gopacket"
 	"github.com/google/gopacket/layers"
 	"github.com/google/gopacket/pcap"
-	"github.com/traffic-refinery/traffic-refinery/internal/servicemap"
+	"github.com/ENSL-NS/tr-ap/internal/servicemap"
 )
 
 // PacketData contains packet and its metadata

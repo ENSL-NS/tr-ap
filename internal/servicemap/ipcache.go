@@ -3,7 +3,7 @@ package servicemap
 import (
 	"time"
 
-	"github.com/traffic-refinery/traffic-refinery/internal/cache"
+	"github.com/ENSL-NS/tr-ap/internal/cache"
 )
 
 // IPCache contains the saved entries extracted from DNS queries and IP prefix

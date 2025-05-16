@@ -8,10 +8,10 @@ import (
 	"runtime"
 	"runtime/pprof"
 
-	"github.com/traffic-refinery/traffic-refinery/internal/config"
-	"github.com/traffic-refinery/traffic-refinery/internal/flowstats"
-	"github.com/traffic-refinery/traffic-refinery/internal/network"
-	"github.com/traffic-refinery/traffic-refinery/internal/servicemap"
+	"github.com/ENSL-NS/tr-ap/internal/config"
+	"github.com/ENSL-NS/tr-ap/internal/flowstats"
+	"github.com/ENSL-NS/tr-ap/internal/network"
+	"github.com/ENSL-NS/tr-ap/internal/servicemap"
 )
 
 func BenchmarkMemory(traceFile, folder, conf string) {

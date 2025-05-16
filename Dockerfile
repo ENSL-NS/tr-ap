@@ -4,7 +4,7 @@ FROM golang:bookworm AS builder
 RUN apt-get update && \
     apt-get -y install libpcap0.8 libpcap0.8-dev 
 # Set the working directory to ...
-WORKDIR /home/gyongayo/Bureau/tr-ap
+WORKDIR /go/src/github.com/ENSL-NS/tr-ap/
 
 # Copy the source code and config files
 ADD cmd ./cmd/
@@ -14,10 +14,6 @@ ADD Makefile ./
 ADD go.* ./
 
 # Get dependencies
-
-#RUN go mod edit -replace github.com/traffic-refinery/traffic-refinery=.
-# Create counters if needed
-# Nettoyer les dépendances
 RUN go mod tidy
 
 RUN go run scripts/create_counters.go
@@ -37,7 +33,7 @@ RUN apt-get update && \
 
 
 WORKDIR /root/
-COPY --from=builder /go/src/github.com/traffic-refinery/traffic-refinery/tr /usr/bin/
+COPY --from=builder /go/src/github.com/ENSL-NS/tr-ap/tr /usr/bin/
 
 # Copy configuration files
 ADD ./configs config/

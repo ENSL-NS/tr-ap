@@ -5,7 +5,7 @@ import (
 
 	log "github.com/sirupsen/logrus"
 
-	"github.com/traffic-refinery/traffic-refinery/internal/network"
+	"github.com/ENSL-NS/tr-ap/internal/network"
 )
 
 // VideoSegment is the data structure used to keep track of segments being downloaded

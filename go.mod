@@ -9,7 +9,6 @@ require (
 	github.com/sirupsen/logrus v1.9.3
 	github.com/spf13/viper v1.20.1
 	github.com/stretchr/testify v1.10.0
-	github.com/traffic-refinery/traffic-refinery v0.0.0-20231220171240-dcb2eba9464a
 	golang.org/x/net v0.40.0
 	golang.org/x/tools v0.33.0
 )

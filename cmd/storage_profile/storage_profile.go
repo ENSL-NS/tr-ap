@@ -8,11 +8,11 @@ import (
 	"log"
 	"os"
 
-	"github.com/traffic-refinery/traffic-refinery/internal/config"
-	"github.com/traffic-refinery/traffic-refinery/internal/flowstats"
-	"github.com/traffic-refinery/traffic-refinery/internal/network"
-	"github.com/traffic-refinery/traffic-refinery/internal/servicemap"
-	"github.com/traffic-refinery/traffic-refinery/internal/stats"
+	"github.com/ENSL-NS/tr-ap/internal/config"
+	"github.com/ENSL-NS/tr-ap/internal/flowstats"
+	"github.com/ENSL-NS/tr-ap/internal/network"
+	"github.com/ENSL-NS/tr-ap/internal/servicemap"
+	"github.com/ENSL-NS/tr-ap/internal/stats"
 )
 
 func BenchmarkStorage(traceFile, folder, conf string) {

@@ -7,7 +7,7 @@ import (
 	"github.com/google/gopacket"
 	"github.com/google/gopacket/layers"
 	log "github.com/sirupsen/logrus"
-	"github.com/traffic-refinery/traffic-refinery/internal/servicemap"
+	"github.com/ENSL-NS/tr-ap/internal/servicemap"
 )
 
 // DNSParser

@@ -146,12 +146,7 @@ loop:
 		decoding_loop:
 			for _, typ := range decoded {
 				switch typ {
-				case layers.LayerTypeEthernet:
-					pkt.Dir, parsingErr = tp.netif.getDirection(pkt.Eth,pkt.Ip4)
-					if pkt.Dir == -1 {
-						break decoding_loop
-					}
-					pkt.HwAddr, parsingErr = tp.parseEthLayer(pkt.Eth, pkt.Dir)
+				
 				case layers.LayerTypeIPv4:
 					pkt.Dir, parsingErr = tp.netif.getDirection(pkt.Eth,pkt.Ip4)
 					if pkt.Dir == -1 {

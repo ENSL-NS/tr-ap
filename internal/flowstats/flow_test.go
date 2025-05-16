@@ -3,9 +3,9 @@ package flowstats
 import (
 	"testing"
 
-	"github.com/traffic-refinery/traffic-refinery/internal/counters"
-	"github.com/traffic-refinery/traffic-refinery/internal/network"
-	"github.com/traffic-refinery/traffic-refinery/internal/utils"
+	"github.com/ENSL-NS/tr-ap/internal/counters"
+	"github.com/ENSL-NS/tr-ap/internal/network"
+	"github.com/ENSL-NS/tr-ap/internal/utils"
 )
 
 func TestAddPacketFlow(t *testing.T) {

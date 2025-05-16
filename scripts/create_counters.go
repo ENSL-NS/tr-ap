@@ -12,7 +12,7 @@ func main() {
 	cfg := &packages.Config{
 		Mode: packages.NeedSyntax | packages.NeedTypes | packages.NeedTypesInfo,
 	}
-	pkgs, err := packages.Load(cfg, "github.com/traffic-refinery/traffic-refinery/internal/counters")
+	pkgs, err := packages.Load(cfg, "github.com/ENSL-NS/tr-ap/internal/counters")
 	if err != nil {
 		panic(err)
 	}

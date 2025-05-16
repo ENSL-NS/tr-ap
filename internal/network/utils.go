@@ -3,7 +3,7 @@ package network
 import (
 	"errors"
 	"net"
-	// log "github.com/sirupsen/logrus"
+	log "github.com/sirupsen/logrus"
 )
 
 // privateIPBlocks is an array of IP ranges used to tell if a given IP falls within an RFC1918 or loopback range
@@ -21,6 +21,7 @@ func CIDRinit() {
 	} {
 		_, block, _ := net.ParseCIDR(cidr)
 		privateIPBlocks = append(privateIPBlocks, block)
+		log.Debugf("Initialized private IP blocks: %v", privateIPBlocks)
 	}
 }
 
@@ -28,6 +29,7 @@ func CIDRinit() {
 func isPrivateIP(ip net.IP) bool {
 	for _, block := range privateIPBlocks {
 		if block.Contains(ip) {
+			log.Debugf("IP %s is in block %s", ip, block)
 			return true
 		}
 	}

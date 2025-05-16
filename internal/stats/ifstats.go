@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"time"
 
-	"github.com/traffic-refinery/traffic-refinery/internal/network"
+	"github.com/ENSL-NS/tr-ap/internal/network"
 )
 
 type IfStatsPrinter struct {

@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"testing"
 
-	"github.com/traffic-refinery/traffic-refinery/internal/utils"
+	"github.com/ENSL-NS/tr-ap/internal/utils"
 )
 
 func TestSetDefaults(t *testing.T) {

@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"time"
 
-	"github.com/traffic-refinery/traffic-refinery/internal/flowstats"
+	"github.com/ENSL-NS/tr-ap/internal/flowstats"
 )
 
 type OutTraffic struct {

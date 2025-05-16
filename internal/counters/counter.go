@@ -1,7 +1,7 @@
 package counters
 
 import (
-	"github.com/traffic-refinery/traffic-refinery/internal/network"
+	"github.com/ENSL-NS/tr-ap/internal/network"
 )
 
 // Counter is a general counter interface.

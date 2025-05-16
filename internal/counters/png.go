@@ -8,7 +8,7 @@ import (
 	"log"
 	"math"
 
-	"github.com/traffic-refinery/traffic-refinery/internal/network"
+	"github.com/ENSL-NS/tr-ap/internal/network"
 )
 
 // ByteCopy is a data structure to collect packet and byte counters

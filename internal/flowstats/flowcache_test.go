@@ -7,11 +7,11 @@ import (
 	"testing"
 	"time"
 
-	"github.com/traffic-refinery/traffic-refinery/internal/config"
-	"github.com/traffic-refinery/traffic-refinery/internal/counters"
-	"github.com/traffic-refinery/traffic-refinery/internal/network"
-	"github.com/traffic-refinery/traffic-refinery/internal/servicemap"
-	"github.com/traffic-refinery/traffic-refinery/internal/utils"
+	"github.com/ENSL-NS/tr-ap/internal/config"
+	"github.com/ENSL-NS/tr-ap/internal/counters"
+	"github.com/ENSL-NS/tr-ap/internal/network"
+	"github.com/ENSL-NS/tr-ap/internal/servicemap"
+	"github.com/ENSL-NS/tr-ap/internal/utils"
 )
 
 func TestFlowcacheAddFlow(t *testing.T) {

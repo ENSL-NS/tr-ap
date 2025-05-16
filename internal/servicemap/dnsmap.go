@@ -5,7 +5,7 @@ import (
 
 	"github.com/google/gopacket/layers"
 	log "github.com/sirupsen/logrus"
-	"github.com/traffic-refinery/traffic-refinery/internal/aho_corasick"
+	"github.com/ENSL-NS/tr-ap/internal/aho_corasick"
 )
 
 // CName contains the timeout information

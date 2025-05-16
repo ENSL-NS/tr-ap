@@ -7,9 +7,9 @@ import (
 	"flag"
 	"testing"
 
-	"github.com/traffic-refinery/traffic-refinery/internal/config"
-	"github.com/traffic-refinery/traffic-refinery/internal/servicemap"
-	"github.com/traffic-refinery/traffic-refinery/internal/utils"
+	"github.com/ENSL-NS/tr-ap/internal/config"
+	"github.com/ENSL-NS/tr-ap/internal/servicemap"
+	"github.com/ENSL-NS/tr-ap/internal/utils"
 )
 
 var ifname = flag.String("ifname", "", "Name of the interface to use")

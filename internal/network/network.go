@@ -64,6 +64,7 @@ type NetworkInterface struct {
 	Name       string
 	HwAddr     net.HardwareAddr
 	LocalNetv4 net.IPNet
+	LocalIPv4 net.IP
 	LocalNetv6 net.IPNet
 	HandleType uint8
 	IfHandle   Handle
@@ -92,9 +93,10 @@ func getMirrorMac(iface string) (net.HardwareAddr, error) {
 	return nil, errors.New("Could not find mac address of mirror switch on " + iface)
 }
 
-func getMacFromName(name string) (net.HardwareAddr, net.IPNet, net.IPNet) {
+func getMacFromName(name string) (net.HardwareAddr, net.IPNet, net.IPNet,net.IP) {
 	var hardwareAddr net.HardwareAddr
 	var localNetv4, localNetv6 net.IPNet
+	var localIPv4 net.IP
 	ifaces, err := net.Interfaces()
 	if err != nil {
 		panic(err)
@@ -108,21 +110,27 @@ func getMacFromName(name string) (net.HardwareAddr, net.IPNet, net.IPNet) {
 				case *net.IPNet:
 					if v.IP.IsGlobalUnicast() && v.IP.To4() != nil {
 						localNetv4 = *v
+						localIPv4 = v.IP
 					} else if v.IP.IsGlobalUnicast() && v.IP.To16() != nil {
 						localNetv6 = *v
 					}
-				}
 			}
+		}
 
 			hardwareAddr = i.HardwareAddr
 			break
 		}
 	}
-	return hardwareAddr, localNetv4, localNetv6
+	return hardwareAddr, localNetv4, localNetv6, localIPv4
 }
 
-func (ni *NetworkInterface) getDirection(eth *layers.Ethernet,ip *layers.IPv4) (int, error) {
+func (ni *NetworkInterface) getDirection(eth *layers.Ethernet, ip *layers.IPv4) (int, error) {
 	dir := -1
+
+	log.Debugf("Mode: %s | SrcMAC: %s | DstMAC: %s | LocalHw: %s", ni.Mode, eth.SrcMAC, eth.DstMAC, ni.HwAddr)
+	if ip != nil {
+		log.Debugf("SrcIP: %s | DstIP: %s | LocalIPv4: %s", ip.SrcIP, ip.DstIP, ni.LocalIPv4)
+	}
 	if ni.Mode == apMode || ni.Mode == mirrorMode {
 		if eth.DstMAC.String() == ni.HwAddr.String() {
 			dir = TrafficOut
@@ -130,24 +138,34 @@ func (ni *NetworkInterface) getDirection(eth *layers.Ethernet,ip *layers.IPv4) (
 			dir = TrafficIn
 		}
 	} else if ni.Mode == hostMode {
-		// log.Debugf("src %s dst %s hw %s", eth.SrcMAC.String(), eth.DstMAC.String(), ni.HwAddr.String())
 		if eth.SrcMAC.String() == ni.HwAddr.String() {
 			dir = TrafficOut
 		} else if eth.DstMAC.String() == ni.HwAddr.String() {
 			dir = TrafficIn
 		}
-	}  else if ni.Mode == ipMode {
-		// log.Debugf("src %s dst %s hw %s", eth.SrcMAC.String(), eth.DstMAC.String(), ni.HwAddr.String())
-		if ip.SrcIP.String() == ni.LocalNetv4.String() {
-			dir = TrafficOut
-		} else if ip.DstIP.String() == ni.LocalNetv4.String() {
-			dir = TrafficIn
+	} else if ni.Mode == ipMode {
+		// Ajout de logs pour voir pourquoi ça échoue
+		if ip == nil {
+			log.Warn("IP layer is nil in ipMode")
+			return -1, nil
 		}
+		if isPrivateIP(ip.SrcIP) && !isPrivateIP(ip.DstIP) {
+			log.Debugf("TrafficOut detected: %s -> %s", ip.SrcIP, ip.DstIP)
+			dir = TrafficOut
+		} else if !isPrivateIP(ip.SrcIP) && isPrivateIP(ip.DstIP) {
+			log.Debugf("TrafficIn detected: %s -> %s", ip.SrcIP, ip.DstIP)
+			dir = TrafficIn
+		} else {
+			log.Warnf("Ambiguous direction: %s -> %s (check isPrivateIP logic)", ip.SrcIP, ip.DstIP)
+		}
+		
 	} else {
 		panic(errors.New("interface mode not set"))
 	}
+	
 	return dir, nil
 }
+
 
 func (ni *NetworkInterface) NewNetworkInterface(conf NetworkInterfaceConfiguration) {
 	ni.Name = conf.Name
@@ -167,7 +185,7 @@ func (ni *NetworkInterface) NewNetworkInterface(conf NetworkInterfaceConfigurati
 			panic(err)
 		}
 	} else {
-		ni.HwAddr, ni.LocalNetv4, ni.LocalNetv6 = getMacFromName(ni.Name)
+		ni.HwAddr, ni.LocalNetv4, ni.LocalNetv6, ni.LocalIPv4 = getMacFromName(ni.Name)
 	}
 
 	// Initiate the interface based on type

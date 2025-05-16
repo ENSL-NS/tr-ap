@@ -6,8 +6,8 @@ import (
 	"math"
 
 	log "github.com/sirupsen/logrus"
-	"github.com/traffic-refinery/traffic-refinery/internal/network"
-	"github.com/traffic-refinery/traffic-refinery/internal/welford"
+	"github.com/ENSL-NS/tr-ap/internal/network"
+	"github.com/ENSL-NS/tr-ap/internal/welford"
 )
 
 // LatencyJitterCounter is a data structure to collect packet and byte counters

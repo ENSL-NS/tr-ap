@@ -6,8 +6,8 @@ import (
 
 	log "github.com/sirupsen/logrus"
 
-	"github.com/traffic-refinery/traffic-refinery/internal/counters"
-	"github.com/traffic-refinery/traffic-refinery/internal/network"
+	"github.com/ENSL-NS/tr-ap/internal/counters"
+	"github.com/ENSL-NS/tr-ap/internal/network"
 )
 
 // Flow is a general flow interface.
