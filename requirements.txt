@@ -1,3 +1,0 @@
-flask
-psutil
-prometheus_client

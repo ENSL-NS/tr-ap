@@ -21,10 +21,4 @@ services:
     volumes:
       - resin-data:/data
     privileged: true
-  
-  #prometheus:
-    #build: ./prometheus
-    #ports:
-     # - "9090:9090"
-    #restart: always
 
