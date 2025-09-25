@@ -1,0 +1,30 @@
+
+version: '2.4'
+volumes:
+  resin-data: {}
+networks: {}
+services:
+  main:
+    tty: true
+    build:
+      context: .
+    ports:
+      - "9100:9100"
+    labels:
+      io.resin.features.dbus: '1'
+      io.resin.features.firmware: '1'
+      io.resin.features.resin-api: '1'
+      io.resin.features.kernel-modules: '1'
+      io.resin.features.supervisor-api: '1'
+    container_name: tr
+    restart: always
+    volumes:
+      - resin-data:/data
+    privileged: true
+  
+  #prometheus:
+    #build: ./prometheus
+    #ports:
+     # - "9090:9090"
+    #restart: always
+

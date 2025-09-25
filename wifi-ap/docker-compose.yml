@@ -1,0 +1,15 @@
+version: '2.1'
+volumes:
+  resin-data: {}
+services:
+  ML:
+    build: ./ML_RF
+    network_mode: host
+    privileged: true
+    cap_add:
+      - NET_ADMIN
+      - SYS_ADMIN
+      - NET_RAW
+    restart: always
+    volumes:
+      - resin-data:/data

@@ -1,9 +1,9 @@
 {
   "Sys": {
-    "CPUProf": false,
+    "CPUProf": true,
 	  "MemProf": false,
     "InterfaceStats": false,
-    "OutFolder": "/tmp/"
+    "OutFolder": "/data/"
   },
   "Parsers": {
     "DNSParser": {
@@ -12,11 +12,17 @@
       "Mode": "ip"
     },
     "TrafficParsers": [
+       {
+	    "Driver": "pcap",
+	    "Ifname": "eth1",
+	    "Mode": "ip",
+	    "Filter": "(src net 192.168.42.0/24 or dst net 192.168.42.0/24) and not port 53"
+      },
       {
         "Driver": "pcap",
         "Ifname": "eth0",
         "Mode": "ip",
-        "Filter": "(src net 192.168.0.0/16 or dst net 192.168.0.0/16) and not port 53"
+        "Filter": "(src net 192.168.42.0/24 or dst net 192.168.42.0/24) and not port 53"
       }
     ]
   },
